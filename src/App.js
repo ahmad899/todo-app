@@ -12,7 +12,9 @@ function App() {
     db.collection("todos")
       .orderBy("timestamp", "desc")
       .onSnapshot((snapshot) => {
-        setTodos(snapshot.docs.map((doc) => doc.data().todo));
+        setTodos(
+          snapshot.docs.map((doc) => ({ todo: doc.data().todo, id: doc.id }))
+        );
       });
   }, []);
 
@@ -25,9 +27,10 @@ function App() {
     });
     setInput("");
   };
+
   return (
     <div className="App">
-      <h1>hello word</h1>
+      <h1>Hello Visitor</h1>
       <form>
         <FormControl>
           <InputLabel>write a Todo</InputLabel>
